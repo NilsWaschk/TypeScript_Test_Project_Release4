@@ -1,0 +1,162 @@
+[
+    {
+        "name": "farben",
+        "mySchema" : {
+            "farbe": {
+                "type": 10,
+                "required": true
+            },
+            "farbbezeichnung": {
+                "type": 5,
+                "nested": {
+                    "lang": {
+                        "type": 10,
+                        "required": true
+                    },
+                    "text": {
+                        "type": 10,
+                        "required": true
+                    }
+                },
+                "required": true
+            }
+        },
+        "options": {},
+        "population": []
+    },
+    {
+        "name": "kundenstamm",
+        "mySchema" : {
+            "kundennummer": {
+                "type" : 8,
+                "required" : true,
+                "index" : {
+                    "unique": true
+                }
+            },
+            "name": {
+                "type": 10,
+                "required": true
+            },
+            "preisliste": {
+                "type": 8,
+                "required": true
+            }
+        },
+        "options": {},
+        "population": []
+    },
+    {
+        "name": "modellstamm",
+        "mySchema": {
+            "produktbereich" : {
+                "type" : 8,
+                "default": 1
+            },
+            "saison": {
+                "type": 10,
+                "required": true
+            },
+            "modell": {
+                "type": 10,
+                "required": true
+            },
+            "artikel": {
+                "type": 10,
+                "required": true
+            },
+            "name": {
+                "type": 10,
+                "required": true
+            },
+            "preis": {
+                "type": 8,
+                "required": true
+            },
+            "farben": {
+                "type": 0,
+                "required": true,
+                "nested": {
+                    "type": 9,
+                    "ref": "farben",
+                    "required": true
+                }
+            }
+        },
+        "options": {},
+        "population": [
+            {
+                "path" : "farben", "select" : "-_id"
+            }
+        ]
+    },
+    {
+        "name": "auftraege",
+        "mySchema": {
+            "produktbereich": {
+                "type": 8,
+                "default": 1
+            },
+            "auftragssaison": {
+                "type": 10,
+                "required": true
+            },
+            "auftragsnummer": {
+                "type": 8,
+                "required": true,
+                "index": {
+                    "unique": true
+                }
+            },
+            "kunde": {
+                "type": 9,
+                "ref": "kundenstamm",
+                "required": true
+            },
+            "positionen": {
+                "required": true,
+                "type": 5,
+                "nested" : {
+                    "positionsnummer": {
+                        "type": 8,
+                        "required": true
+                    },
+                    "artikel": {
+                        "type" : 9,
+                        "ref": "modellstamm",
+                        "required": true
+                    },
+                    "farbe": {
+                        "type": 9,
+                        "ref": "farben",
+                        "required": true
+                    },
+                    "preis": {
+                        "type": 8,
+                        "required": true
+                    },
+                    "subpositionen": {
+                        "required": true,
+                        "type" : 5,
+                        "nested": {
+                            "groesse": {
+                                "type": 10,
+                                "required": true
+                            },
+                            "menge": {
+                                "type": 8,
+                                "default": 1
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "options": {},
+        "population": [
+            {"path": "kunde", "select": "-_id"},
+            {"path": "positionen.artikel", "select": "-_id -farben"},
+            {"path": "positionen.farbe", "select": "-_id"}
+        ]
+    }
+]

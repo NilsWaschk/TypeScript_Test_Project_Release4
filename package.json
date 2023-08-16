@@ -1,0 +1,32 @@
+{
+  "name": "typescript_test_project_release4",
+  "version": "1.0.a",
+  "description": "TypeScript Test Project",
+  "main": "main.js",
+  "scripts": {
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/main.js",
+    "new:collection": "bash ./commands/createCollection.sh",
+    "new:api": "bash ./commands/createAPI.sh"
+  },
+  "author": "Nils Waschk",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^20.2.3",
+    "nodemon": "^2.0.22",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.0"
+  }
+}
