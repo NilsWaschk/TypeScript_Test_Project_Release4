@@ -16,7 +16,7 @@ export class proSchema{
         name: string, 
         model : Model<Document>, 
         controllerFunction : Function, 
-        population: Array<any> = [],
+        population : Array<any> = [],
         api : string  = "/api/v1/"
     ){
         this.myName = name

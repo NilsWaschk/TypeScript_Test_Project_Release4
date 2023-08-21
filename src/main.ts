@@ -8,6 +8,7 @@ import { TModel } from "./types/controllerType"
 
 import { SchemahandlerModel as SchemaHandler } from "./mongoDB/collections/Schemahandler/schemahandler.model"
 import { router as Schemahandler } from "./api/routes/schemahandler"
+import { router as testref } from './api/routes/testref'
 import { setup } from "./mongoDB/utils/handleSchema"
 import { filldb } from "./tmp/filldb"
 
@@ -42,6 +43,7 @@ const main = async (config: TConfig): Promise<void> => {
         app.use(express.json())
         app.use(cors(corsOptions))
         app.use("/api/v1/schema", Schemahandler)
+        app.use("/api/v1/test", testref)
 
     const port = process.env.PORT || 5000
 
